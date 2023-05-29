@@ -1,0 +1,138 @@
+{% load static %}
+<!-- cart-area-start -->
+{% if items != None %}
+<section class="cart-area pt-120 pb-120">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <form id="cart-form" action="{% url 'order' %}" method="post">
+          {% csrf_token %}
+          <div class="table-content table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th class="product-thumbnail">Rasmlari</th>
+                  <th class="cart-product-name">Mahsulot</th>
+                  <th class="product-price">Narxi</th>
+                  <!-- <th class="product-quantity">Soni</th> -->
+                  {% comment %}
+                  <th class="product-subtotal">Total</th>
+                  {% endcomment %}
+                  <th class="product-remove">O'chirish</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for item in items %}
+                <tr class="cart-item__info">
+                  <td class="product-thumbnail">
+                    <a href="shop-details.html"
+                      ><img src="{{item.imageURL}}" alt="{{item.name}}"
+                    /></a>
+                  </td>
+                  <td class="product-name">
+                    <a href="shop-details.html">{{item.name}}</a>
+                  </td>
+                  <td class="product-price">
+                    {% load humanize %}
+                      <span>{{item.price|floatformat:0|intcomma}} UZS</span>
+                  </td>
+                  <td class="product-remove">
+                    <a href="{% url 'remove-cart' item.id %}"><i class="fa fa-times"></i></a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div class="coupon-all">
+                <div class="coupon2">
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row justify-content-center">
+            <div class="col-md-5">
+              <div class="cart-page-total">
+                <h2>Cart totals</h2>
+                <ul class="mb-20">
+                  <li>
+                    Jami <span style="margin-left: 4px">UZS</span
+                    ><span id="overAllSum">{% load humanize %}
+                      <span>{{sum|floatformat:0|intcomma}} UZS</span></span>
+                  </li>
+                </ul>
+                
+                <button id="submit_to_check" type="submit" class="tp-btn-h1"
+                >Buyurtma berish</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+{% else %}
+<section class="cart-area pt-120 pb-120">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <form id="cart-form" action="{% url 'order' %}" method="post">
+          {% csrf_token %}
+          <div class="table-content table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th class="product-thumbnail">Rasmlari</th>
+                  <th class="cart-product-name">Mahsulot</th>
+                  <th class="product-price">Narxi</th>
+                  <th class="product-remove">O'chirish</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for item in items %}
+                <tr class="cart-item__info">
+                  <td class="product-thumbnail">
+                    <a href="shop-details.html"
+                      ><img src="{{item.imageURL}}" alt="{{item.name}}"
+                    /></a>
+                  </td>
+                  <td class="product-name">
+                    <a href="shop-details.html">{{item.name}}</a>
+                  </td>
+                  <td class="product-price">
+                    <span class="amount">{{item.price}} UZS</span>
+                  </td>
+                  <td class="product-remove">
+                    <a href="{% url 'remove-cart' item.id %}"><i class="fa fa-times"></i></a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div class="coupon-all">
+                <div class="coupon2">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row justify-content-center">
+            <div class="col-md-5">
+              <div class="cart-page-total">
+               <center><h2>Savatchangiz bo'sh</h2></center>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+<!-- cart-area-end -->
