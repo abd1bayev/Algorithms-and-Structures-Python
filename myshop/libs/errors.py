@@ -1,1 +1,0 @@
-ESKIZ_AUTH_TOKEN_ERROR = "Error creating sms client token"
